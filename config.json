@@ -3,5 +3,5 @@
     "MinimumBalance": 0.00,
     "BudgetFile": "budget.csv",
     "DaysToShow": 30,
-    "GraphOutputFile": "graph.pdf"
+    "GraphOutputFile": "graph.png"
 }

@@ -12,4 +12,4 @@ dayOfMonth,delta
 30,-600.00
 ```
 
-![BudgetGraph](graph.pdf)
+![BudgetGraph](graph.png)

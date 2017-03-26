@@ -11,3 +11,5 @@ dayOfMonth,delta
 15,500.00
 30,-600.00
 ```
+
+![BudgetGraph](graph.pdf)

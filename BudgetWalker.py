@@ -1,5 +1,7 @@
 import argparse
 import json
+import datetime
+import pytz
 
 def readFile(filename):
     f = open(filename, 'r')
@@ -28,17 +30,56 @@ def readCsv(filename, types=[]):
             i+=1
         records.append(record)
     return records
+
+def getBudgetInstructions(data):
+    result = {}
+    for each in data:
+        dayOfMonth = each['dayOfMonth']
+        delta = each['delta']
+        if not dayOfMonth in result:
+            result[dayOfMonth] = 0
+        result[dayOfMonth] += delta # really we end of moving the balance by the sum of delta
+    return result
         
-            
+    
+        
+def budgetWalk(config):
+    balance = config['StartingBalance']
+
+    utc = pytz.utc
+    eastern = pytz.timezone('US/Eastern')
+
+    dt = utc.localize(datetime.datetime.now())
+    local = dt.astimezone(eastern)
+
+    instructions = getBudgetInstructions(config['Data'])
+
+    dayDelta = datetime.timedelta(days=1)
+
+    for i in range(30):
+        if local.day in instructions:
+            print(local)
+            balance += instructions[local.day]
+            print(balance)
+        local += dayDelta
+    
     
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Walk a budget to visualize current balance')
     parser.add_argument('--config', dest='config', default='config.json', help='Configuration file to use')
-    parser.add_argument('--budgetCsv', dest='budgetCsv', default='budget.csv', help='Budget CSV file')
-    parser.add_argument('--start', dest='start', default=0.00, type=float, help='Starting balance')
+    parser.add_argument('--budgetFile', dest='budgetFile', default=None, help='Budget CSV file')
+    parser.add_argument('--startingBalance', dest='startingBalance', default=None, type=float, help='Starting balance')
 
     args = parser.parse_args()
     
-    print(readJson(args.config))
-    print(readCsv(args.budgetCsv, types=[int, float])) 
+    config = readJson(args.config)
+    if args.budgetFile is not None:
+        config['BudgetFile'] = args.budgetFile
+    if args.startingBalance is not None:
+        config['StartingBalance'] = args.startingBalance
+
+    config['Data'] = readCsv(config['BudgetFile'], types=[int, float]) 
+    
+    budgetWalk(config)
+    

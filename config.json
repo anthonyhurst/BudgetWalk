@@ -1,4 +1,4 @@
 {
-    "StartingAmount": 100.00,
+    "StartingBalance": 100.00,
     "BudgetFile": "budget.csv"
 }

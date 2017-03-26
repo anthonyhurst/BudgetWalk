@@ -13,3 +13,5 @@ dayOfMonth,delta
 ```
 
 ![BudgetGraph](graph.png)
+
+![BudgetPieGraph](pie.graph.png)

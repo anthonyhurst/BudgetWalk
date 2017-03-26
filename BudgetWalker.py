@@ -58,8 +58,9 @@ def budgetWalk(config):
 
     for i in range(30):
         if local.day in instructions:
-            print(local)
+            print(local.strftime("%Y-%m-%d"), end="\t")
             balance += instructions[local.day]
+            balance = round(balance,2)
             print(balance)
         local += dayDelta
     

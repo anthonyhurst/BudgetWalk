@@ -3,5 +3,6 @@
     "MinimumBalance": 0.00,
     "BudgetFile": "budget.csv",
     "DaysToShow": 30,
-    "GraphOutputFile": "graph.png"
+    "GraphOutputFile": "graph.png",
+    "PieGraphOutputFile": "pie.graph.png"
 }

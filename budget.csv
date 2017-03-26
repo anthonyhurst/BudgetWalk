@@ -1,6 +1,6 @@
-dayOfMonth,delta
-1,500.00
-10,-90.00
-15,500.00
-30,-600.00
-30,100.50
+dayOfMonth,delta,reason
+1,500.00,Paycheck
+10,-90.00,Cellphone Bill
+15,500.00,Paycheck
+30,-600.00,Rent
+30,100.50,Other Income

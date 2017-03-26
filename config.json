@@ -1,5 +1,6 @@
 {
-    "StartingBalance": 100.00,
+    "StartingBalance": 1000.00,
+    "MinimumBalance": 0.00,
     "BudgetFile": "budget.csv",
     "DaysToShow": 30,
     "GraphOutputFile": "graph.pdf"

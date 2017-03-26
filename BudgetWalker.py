@@ -2,6 +2,9 @@ import argparse
 import json
 import datetime
 import pytz
+import pandas
+import matplotlib
+matplotlib.use('Agg')
 
 def readFile(filename):
     f = open(filename, 'r')
@@ -55,14 +58,23 @@ def budgetWalk(config):
     instructions = getBudgetInstructions(config['Data'])
 
     dayDelta = datetime.timedelta(days=1)
+    daysToShow = 30 if not 'DaysToShow' in config else config['DaysToShow']
 
-    for i in range(30):
+    dfRecords = []
+
+    for i in range(daysToShow):
         if local.day in instructions:
             print(local.strftime("%Y-%m-%d"), end="\t")
             balance += instructions[local.day]
             balance = round(balance,2)
             print(balance)
+            dfRecords.append([local, balance])
         local += dayDelta
+
+    df = pandas.DataFrame.from_records(dfRecords)
+    ax = df.plot()
+    figure = ax.get_figure()
+    figure.savefig(config['GraphOutputFile'])
     
     
 
